@@ -3,6 +3,7 @@ package nl.mvdvalk.springboot2tutorial.dao;
 import nl.mvdvalk.springboot2tutorial.model.Person;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /*
@@ -15,10 +16,20 @@ import java.util.UUID;
 public interface PersonDao {
     int insertPerson(UUID id, Person person);
 
-    default int insertPerson(Person person){
+    default int insertPerson(Person person) {
         UUID id = UUID.randomUUID();
-        return insertPerson(id,person);
+        return insertPerson(id, person);
     }
 
+    // return list of persons currently in the database
     List<Person> selectAllPeople();
+
+    // select a person by id
+    Optional<Person> selectPersonById(UUID id);
+
+    // delete a person from the database by id
+    int deletePersonById(UUID id);
+
+    // update a person from the database by id
+    int updatePersonById(UUID id, Person person);
 }

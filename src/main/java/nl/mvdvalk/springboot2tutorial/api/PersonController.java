@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 /*
     Set base request mapping and set the class to a request controller for the rest api
@@ -31,4 +32,19 @@ public class PersonController {
         return personService.getAllPeople();
     }
 
+    @GetMapping("{id}")
+    public Person getPersonById(@PathVariable("id") UUID id){
+        return personService.getPersonById(id)
+                .orElse(null);
+    }
+
+    @DeleteMapping("{id}")
+    public void deletePerson(@PathVariable("id") UUID id){
+        personService.deletePerson(id);
+    }
+
+    @PutMapping("{id}")
+    public void updatePerson(@PathVariable("id") UUID id,@RequestBody Person person){
+        personService.updatePerson(id,person);
+    }
 }
